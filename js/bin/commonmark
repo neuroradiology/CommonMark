@@ -30,4 +30,13 @@ for (var i = 0; i < files.length; i++) {
   inps.push(fs.readFileSync(file, 'utf8'));
 }
 
-process.stdout.write(renderer.render(parser.parse(inps.join('\n'))));
+var doc = parser.parse(inps.join('\n'));
+
+var iterator = new commonmark.NodeIterator(doc);
+
+var next;
+while (next = iterator.next())
+    console.log(next.entering, next.node.t);
+
+
+// process.stdout.write(renderer.render(parser.parse(inps.join('\n'))));
